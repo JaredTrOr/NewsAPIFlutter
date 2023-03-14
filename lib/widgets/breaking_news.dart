@@ -10,7 +10,7 @@ class BreakingNews extends StatelessWidget {
   
   final _pageController = PageController(
     initialPage: 0,
-    viewportFraction: 0.90
+    viewportFraction: 0.80
   );
 
   @override
@@ -26,7 +26,7 @@ class BreakingNews extends StatelessWidget {
 
     // ignore: sized_box_for_whitespace
     return Container(
-      height: screenSize.height * 0.40,
+      height: screenSize.height * 0.45,
       width: screenSize.width * 1,
       child: PageView.builder(
         controller: _pageController,
@@ -45,7 +45,6 @@ class BreakingNews extends StatelessWidget {
     return GestureDetector(
       onTap: () => urlLauncher.launchingUrl(data['url']),
       child: Container(
-        width: screenSize.width * 0.1,
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [

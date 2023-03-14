@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           _renderTopBreakingNew(),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           _createBreakingNews(context)
         ],
       ),
@@ -114,15 +114,16 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(height: 20),
           Text(
             'Breaking news',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 25,
               fontWeight: FontWeight.w500,
               color: getColor('primary')
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 40),
           StreamBuilder(
             stream: newsProvider.newsStreamController.stream,
             builder: (context, snapshot){

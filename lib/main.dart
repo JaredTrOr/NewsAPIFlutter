@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:noticias/pages/home_page.dart';
+import 'package:noticias/pages/tech_page.dart';
 import 'package:noticias/providers/news_provider.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -21,9 +24,9 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  int _pageIndex = 0;
+  int _pageIndex = 1;
   static const List<Widget> _pages = <Widget>[
-    Text('Tech'),
+    TechPage(),
     HomePage(),
     Text('Policy'),
   ];
@@ -44,7 +47,7 @@ class _MyAppState extends State<MyApp> {
           type: BottomNavigationBarType.shifting,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.laptop_mac_outlined),
+              icon: Icon(Icons.search),
               label: 'Laptop'
             ),
             BottomNavigationBarItem(
