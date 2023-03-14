@@ -59,6 +59,7 @@ class TechNews extends StatelessWidget {
   Widget _createListTile(BuildContext context, Map data){
 
     String author = '';
+    String noImageUrl = 'https://i.pinimg.com/originals/61/54/18/61541805b3069740ecd60d483741e5bb.jpg';
 
     if(data['author'] != null){
       author = data['author'];
@@ -70,8 +71,9 @@ class TechNews extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(top: 40),
         child: ListTile(
-          leading: Image(
-            image: NetworkImage(data['urlToImage'] ?? 'https://i.pinimg.com/originals/61/54/18/61541805b3069740ecd60d483741e5bb.jpg')),
+          leading: FadeInImage(
+            placeholder: const AssetImage('assets/images/camera_loading.png'),
+            image: NetworkImage(data['urlToImage'] ?? noImageUrl)),
           title: Text(data['title']),
           subtitle: Text('Author: '+author),
         ),

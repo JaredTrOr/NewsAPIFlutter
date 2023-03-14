@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -40,7 +39,29 @@ class _HomePageState extends State<HomePage> {
                 return Text('Error: ${snapshot.error}');
               } else {
                 List data = snapshot.data!;
-                return _createBreakingNewOfTheDay(context, data[0]);
+
+                if (data.isNotEmpty) {
+                  return _createBreakingNewOfTheDay(context, data[0]);
+                }
+
+                return Column(
+                  children: const [
+                    SizedBox(
+                      height: 80,
+                    ),
+                    Image(
+                        width: 200,
+                        image: AssetImage('assets/images/empty_search.png')),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'No information available :/',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                    ),
+                  ],
+                );
               }
           }
         });
@@ -51,7 +72,8 @@ class _HomePageState extends State<HomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Image(
+        FadeInImage(
+          placeholder: const AssetImage('assets/images/camera_loading.png'),
           image: NetworkImage(data['urlToImage']),
           fit: BoxFit.cover,
           width: screenSize.width * 1,
@@ -82,9 +104,9 @@ class _HomePageState extends State<HomePage> {
         Text(
           'Top breaking new',
           style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w500,
-              color: getColor('primary'),
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+            color: getColor('primary'),
           ),
         ),
         const SizedBox(height: 20),
@@ -96,9 +118,8 @@ class _HomePageState extends State<HomePage> {
         Text(data['description'], textAlign: TextAlign.justify),
         const SizedBox(height: 20),
         ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: getColor('primary') 
-            ),
+            style:
+                ElevatedButton.styleFrom(backgroundColor: getColor('primary')),
             onPressed: () {
               urlLauncher.launchingUrl(data['url']);
             },
@@ -107,7 +128,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _createBreakingNews(BuildContext context){
+  Widget _createBreakingNews(BuildContext context) {
     // ignore: sized_box_for_whitespace
     return Container(
       width: double.infinity,
@@ -118,28 +139,25 @@ class _HomePageState extends State<HomePage> {
           Text(
             'Breaking news',
             style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w500,
-              color: getColor('primary')
-            ),
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+                color: getColor('primary')),
           ),
           const SizedBox(height: 40),
           StreamBuilder(
-            stream: newsProvider.newsStreamController.stream,
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                return BreakingNews(
-                  news: snapshot.data!,
-                  nextPage: newsProvider.getBreakingNews,
-                );
-              }
-              else{
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }
-          )
+              stream: newsProvider.newsStreamController.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return BreakingNews(
+                    news: snapshot.data!,
+                    nextPage: newsProvider.getBreakingNews,
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              })
         ],
       ),
     );

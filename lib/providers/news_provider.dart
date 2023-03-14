@@ -7,6 +7,7 @@ class NewsProvider {
   //Stream controllers
   final StreamController newsStreamController = StreamController.broadcast();
   final StreamController techStreamController = StreamController.broadcast();
+  final StreamController politicsStreamController = StreamController.broadcast();
 
   //Arguments for the search function
   String arguments = '';
@@ -29,6 +30,24 @@ class NewsProvider {
       Map? mapResponse = json.decode(response.body);
 
       newsStreamController.add(mapResponse!['articles']); //Stream controller
+
+      return mapResponse['articles'];
+    }catch(err){  
+      print('ERROR: $err');
+      return [];
+    }
+  }
+
+  Future<List> getPoliticNews() async {
+    try{
+      int day = int.parse(DateTime.now().toString().substring(8,10)) - 1;
+      String fromDay = '2023-03-$day';
+      q = 'Politics';
+      String url = 'https://newsapi.org/v2/everything?q=$q&from=$fromDay&sortBy=$sortBy&apiKey=$key';
+      Response response = await get(Uri.parse(url));
+      Map? mapResponse = json.decode(response.body);
+
+      politicsStreamController.add(mapResponse!['articles']); //Stream controller
 
       return mapResponse['articles'];
     }catch(err){  

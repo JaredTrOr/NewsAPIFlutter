@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noticias/pages/home_page.dart';
+import 'package:noticias/pages/politics_page.dart';
+import 'package:noticias/pages/team_page.dart';
 import 'package:noticias/pages/tech_page.dart';
 import 'package:noticias/providers/news_provider.dart';
 
@@ -28,7 +30,8 @@ class _MyAppState extends State<MyApp> {
   static const List<Widget> _pages = <Widget>[
     TechPage(),
     HomePage(),
-    Text('Policy'),
+    PoliticsPage(),
+    TeamPage()
   ];
 
 
@@ -36,11 +39,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'News',
+      title: 'News API',
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: MyApp._mainColor,
-          title: const Text('News'),
+          title: const Text('News API'),
         ),
         body: _pages.elementAt(_pageIndex),
         bottomNavigationBar: BottomNavigationBar(
@@ -57,6 +60,10 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.book_outlined),
               label: 'Book',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'Person',
             ),
           ],
           iconSize: 30,

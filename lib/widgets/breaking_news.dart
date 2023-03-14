@@ -26,7 +26,7 @@ class BreakingNews extends StatelessWidget {
 
     // ignore: sized_box_for_whitespace
     return Container(
-      height: screenSize.height * 0.45,
+      height: screenSize.height * 0.6,
       width: screenSize.width * 1,
       child: PageView.builder(
         controller: _pageController,
@@ -50,9 +50,11 @@ class BreakingNews extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
-              child: Image(
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/images/camera_loading.png'),
                 image: NetworkImage(data['urlToImage']),
                 width: screenSize.width * 1,
+                height: screenSize.height * 0.2,
               ),
             ),
             const SizedBox(height: 20),
